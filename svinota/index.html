@@ -2,57 +2,94 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Два стиля</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title>SoundTag</title>
 
     <style>
         body {
             margin: 0;
             padding: 0;
-            background: #f2f2f2;
+            background: #0d0d0d; /* Темный фон */
             font-family: Arial, sans-serif;
             text-align: center;
-        }
-
-        button {
-            margin-top: 25px;
-            padding: 12px 25px;
-            font-size: 18px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            background: #4CAF50;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            justify-content: center;
             color: white;
         }
+
+        /* Общий стиль кнопок */
+        button {
+            padding: 14px 28px;
+            font-size: 18px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 75%;
+            max-width: 280px;
+            background: #1f1f1f;
+            color: #ffffff;
+            box-shadow: 0 0 8px #4CAF50;
+            transition: 0.2s;
+        }
+
         button:hover {
-            background: #45a049;
+            background: #272727;
+        }
+
+        button:active {
+            transform: scale(0.95);
         }
 
         /* Стиль второго экрана */
         #style2 {
             display: none;
-            margin-top: 40px;
+            margin-top: 20px;
         }
 
+        /* Адаптивное изображение */
         #style2 img {
-            width: 180px;
-            height: 180px;
+            width: 60vw;
+            max-width: 200px;
+            height: 60vw;
+            max-height: 200px;
             border-radius: 50%;
             object-fit: cover;
+            box-shadow: 0 0 12px #0088cc;
         }
 
+        /* Telegram кнопка */
         .telegram-button {
             margin-top: 20px;
-            padding: 12px 25px;
+            padding: 14px 28px;
             font-size: 18px;
             background: #0088cc;
             color: white;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
+            border-radius: 12px;
+            box-shadow: 0 0 10px #0088cc;
         }
+
         .telegram-button:hover {
             background: #007bb5;
+        }
+
+        .telegram-button:active {
+            transform: scale(0.95);
+        }
+
+        /* Адаптация для маленьких экранов */
+        @media (max-width: 480px) {
+            button, .telegram-button {
+                font-size: 16px;
+                padding: 12px 20px;
+            }
+
+            #style2 img {
+                width: 50vw;
+                height: 50vw;
+            }
         }
     </style>
 </head>
@@ -66,9 +103,9 @@
         <source src="sound.mp3" type="audio/mp3">
     </audio>
 
-    <!-- СТИЛЬ 2 — картинка и телеграм -->
+    <!-- СТИЛЬ 2 -->
     <div id="style2">
-        <img src="image.png" alt="Image"><br>
+        <img src="image.jpg" alt="Image"><br>
         <a href="https://t.me/zxckostyatt_offical" target="_blank">
             <button class="telegram-button">Telegram</button>
         </a>
@@ -78,14 +115,13 @@
         let audio = document.getElementById("sound");
 
         function start() {
-            // Включаем звук
             audio.currentTime = 0;
             audio.play();
 
-            // Прячем кнопку перезагрузки
+            // Прячем кнопку
             document.getElementById("reloadBtn").style.display = "none";
 
-            // Показываем 2-й стиль
+            // Показываем второй стиль
             document.getElementById("style2").style.display = "block";
         }
     </script>
