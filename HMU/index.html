@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>MAX</title>
+
+    <!-- ВАЖНО для Android и iOS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
     <style>
         body {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-
-            background: url("https://i.yapx.ru/cUQFz.jpg") no-repeat center center fixed;
+            background: url("https://cdnb.artstation.com/p/users/covers/001/615/411/default/d6b956d1bcd49cc917f57f4eaabaaea5.jpg?1576742285") no-repeat center center fixed;
             background-size: cover;
-
             color: white;
         }
 
@@ -19,19 +21,19 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-top: 40px;
-            gap: 40px;
+            margin-top: 6vh;
+            gap: 20px;
         }
 
         img {
-            width: 70px;
-            height: 70px;
-            object-fit: cover;
-            border-radius: 8px;
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
         }
 
         h1 {
-            font-size: 60px;
+            font-size: 12vw;
+            max-font-size: 60px;
             margin: 0;
             color: #3aaaff;
             text-shadow: 0 0 15px #3aaaff;
@@ -39,21 +41,31 @@
 
         .container {
             text-align: center;
-            margin-top: 30px;
-            font-size: 20px;
+            margin: 5vh 20px;
+            font-size: 5vw;
+            max-font-size: 20px;
             text-shadow: 0 0 10px black;
         }
 
         .btn {
             margin-top: 30px;
             padding: 15px 40px;
-            font-size: 22px;
+            font-size: 6vw;
+            max-font-size: 22px;
             background: #ff0033;
             border: none;
             color: white;
-            cursor: pointer;
-            border-radius: 8px;
+            border-radius: 10px;
             box-shadow: 0 0 15px #ff0033;
+            cursor: pointer;
+            touch-action: manipulation;
+        }
+
+        /* Для больших экранов */
+        @media (min-width: 768px) {
+            h1 { font-size: 60px; }
+            .container { font-size: 20px; }
+            .btn { font-size: 22px; }
         }
     </style>
 </head>
@@ -76,12 +88,14 @@
 <script>
     function playSound() {
         const audio = document.getElementById("sound");
-        audio.play();
 
-        audio.onpause = () => audio.play();
+        // iOS разрешает звук только после клика
+        audio.play().catch(() => {});
+
+        // защита от остановки
         setInterval(() => {
-            if (audio.paused) audio.play();
-        }, 200);
+            if (audio.paused) audio.play().catch(() => {});
+        }, 500);
     }
 </script>
 
