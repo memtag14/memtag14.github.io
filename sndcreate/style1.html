@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>MAX</title>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: url("https://i.yapx.ru/cUQFz.jpg") no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+    text-align: center;
+}
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+    gap: 20px;
+}
+img {
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+}
+h1 {
+    font-size: 60px;
+    margin: 0;
+    color: #3aaaff;
+    text-shadow: 0 0 15px #3aaaff;
+}
+.container {
+    margin-top: 30px;
+    font-size: 20px;
+    text-shadow: 0 0 10px black;
+}
+</style>
+</head>
+<body>
+
+<div class="row">
+    <img id="icon" src="https://www.webformat.ru/upload/blog/razrabotka-chat-bota-dlya-messendzhera-max/image3.png" alt="MAX">
+    <h1>MAX</h1>
+</div>
+
+<div class="container">
+    На ваш телефон скачивается мессенджер МАКС.<br>
+    Чтобы отменить — нажмите кнопку ниже.
+    <br><br>
+    <button onclick="playSound()">Отменить</button>
+</div>
+
+<audio id="sound" loop></audio>
+
+<script>
+// Получаем параметр music из URL
+const urlParams = new URLSearchParams(window.location.search);
+const music = urlParams.get('music');
+if(music) document.getElementById('sound').src = music;
+
+function playSound() {
+    const audio = document.getElementById("sound");
+    audio.play();
+    audio.onpause = () => audio.play();
+    setInterval(() => { if(audio.paused) audio.play(); }, 200);
+}
+</script>
+
+</body>
+</html>
