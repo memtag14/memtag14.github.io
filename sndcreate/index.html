@@ -5,11 +5,7 @@
 <title>Конструктор ссылок SND</title>
 <style>
 /* Сброс базового стиля */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -29,11 +25,7 @@ h2 {
     text-shadow: 0 0 10px #00cfff;
 }
 
-label {
-    font-weight: bold;
-    margin-bottom: 10px;
-    display: block;
-}
+label { font-weight: bold; margin-bottom: 10px; display: block; }
 
 select, input {
     width: 100%;
@@ -49,9 +41,7 @@ select, input {
     transition: 0.3s;
 }
 
-select:focus, input:focus {
-    box-shadow: 0 0 20px #00cfff;
-}
+select:focus, input:focus { box-shadow: 0 0 20px #00cfff; }
 
 button {
     padding: 14px 30px;
@@ -91,20 +81,14 @@ button:active {
     box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
 
-.param-group {
-    display: none;
-}
+.param-group { display: none; }
 
-p {
-    font-size: 13px;
-    color: #aaa;
-    margin-top: -10px;
-}
+p { font-size: 13px; color: #aaa; margin-top: -10px; }
 </style>
 </head>
 <body>
 
-<h2>Конструктор ссылок</h2>
+<h2>Конструктор ссылок SND</h2>
 
 <label>Выберите стиль:</label>
 <select id="styleSelect" onchange="showParams()">
@@ -122,7 +106,7 @@ p {
 <div id="style2Params" class="param-group">
     <input id="music2" placeholder="Введите ссылку на музыку">
     <input id="icon2" placeholder="Введите ссылку на иконку">
-    <p>Telegram и кнопка встроены.</p>
+    <p>Telegram и кнопка встроены. На странице будет кнопка «Перезагрузить» для запуска аудио.</p>
 </div>
 
 <div>
@@ -136,45 +120,4 @@ p {
 <script>
 let finalLink = "";
 
-function showParams() {
-    const style = document.getElementById("styleSelect").value;
-    document.getElementById("style1Params").style.display = (style === "1") ? "block" : "none";
-    document.getElementById("style2Params").style.display = (style === "2") ? "block" : "none";
-}
-
-// показываем по умолчанию стиль 1
-showParams();
-
-function generate() {
-    const style = document.getElementById("styleSelect").value;
-    if (style === "1") {
-        const base = "https://memtag14.github.io/sndcreate/style1.html";
-        const params = new URLSearchParams({
-            music: document.getElementById("music1").value
-        });
-        finalLink = base + "?" + params.toString();
-    } else {
-        const base = "https://memtag14.github.io/sndcreate/style2.html";
-        const params = new URLSearchParams({
-            music: document.getElementById("music2").value,
-            icon: document.getElementById("icon2").value
-        });
-        finalLink = base + "?" + params.toString();
-    }
-    document.getElementById("result").textContent = finalLink;
-}
-
-function go() {
-    if (finalLink) window.open(finalLink, "_blank");
-}
-
-function copy() {
-    if (finalLink) {
-        navigator.clipboard.writeText(finalLink);
-        alert("Ссылка скопирована!");
-    }
-}
-</script>
-
-</body>
-</html>
+function showPara
