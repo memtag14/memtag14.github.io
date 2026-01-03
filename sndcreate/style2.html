@@ -17,6 +17,11 @@ body {
     height: 100vh;
     color: white;
 }
+#content {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
 img {
     width: 60vw;
     max-width: 200px;
@@ -25,9 +30,9 @@ img {
     border-radius: 50%;
     object-fit: cover;
     box-shadow: 0 0 12px #0088cc;
+    margin-bottom: 20px;
 }
 button {
-    margin-top: 20px;
     padding: 14px 28px;
     font-size: 18px;
     border: none;
@@ -36,6 +41,7 @@ button {
     background: #0088cc;
     color: white;
     box-shadow: 0 0 10px #0088cc;
+    margin: 5px;
 }
 button:hover { background: #007bb5; }
 button:active { transform: scale(0.95); }
@@ -43,23 +49,37 @@ button:active { transform: scale(0.95); }
 </head>
 <body>
 
-<img id="icon" src="image.jpg" alt="Image">
-<a href="https://t.me/memtag14" target="_blank">
-    <button>Telegram</button>
-</a>
+<!-- Кнопка перезагрузить -->
+<button id="reloadBtn" onclick="start()">Перезагрузить</button>
+
+<!-- Контент второго стиля -->
+<div id="content">
+    <img id="icon" src="" alt="Image">
+    <a href="https://t.me/memtag14" target="_blank">
+        <button>Telegram</button>
+    </a>
+</div>
 
 <audio id="sound" loop></audio>
 
 <script>
-// Получаем параметры music и icon из URL
+// Получаем параметры из URL
 const urlParams = new URLSearchParams(window.location.search);
 const music = urlParams.get('music');
 const icon = urlParams.get('icon');
 
-if(music) document.getElementById('sound').src = music;
-if(icon) document.getElementById('icon').src = icon;
+if (music) document.getElementById('sound').src = music;
+if (icon) document.getElementById('icon').src = icon;
 
-document.getElementById('sound').play();
+function start() {
+    const audio = document.getElementById("sound");
+    audio.currentTime = 0;
+    audio.play();
+    
+    // Скрываем кнопку "Перезагрузить" и показываем контент
+    document.getElementById('reloadBtn').style.display = 'none';
+    document.getElementById('content').style.display = 'flex';
+}
 </script>
 
 </body>
