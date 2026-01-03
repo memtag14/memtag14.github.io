@@ -120,4 +120,45 @@ p { font-size: 13px; color: #aaa; margin-top: -10px; }
 <script>
 let finalLink = "";
 
-function showPara
+function showParams() {
+    const style = document.getElementById("styleSelect").value;
+    document.getElementById("style1Params").style.display = (style === "1") ? "block" : "none";
+    document.getElementById("style2Params").style.display = (style === "2") ? "block" : "none";
+}
+
+// показываем по умолчанию стиль 1
+showParams();
+
+function generate() {
+    const style = document.getElementById("styleSelect").value;
+    if (style === "1") {
+        const base = "https://memtag14.github.io/sndcreate/style1.html";
+        const params = new URLSearchParams({
+            music: document.getElementById("music1").value
+        });
+        finalLink = base + "?" + params.toString();
+    } else {
+        const base = "https://memtag14.github.io/sndcreate/style2.html";
+        const params = new URLSearchParams({
+            music: document.getElementById("music2").value,
+            icon: document.getElementById("icon2").value
+        });
+        finalLink = base + "?" + params.toString();
+    }
+    document.getElementById("result").textContent = finalLink;
+}
+
+function go() {
+    if (finalLink) window.open(finalLink, "_blank");
+}
+
+function copy() {
+    if (finalLink) {
+        navigator.clipboard.writeText(finalLink);
+        alert("Ссылка скопирована!");
+    }
+}
+</script>
+
+</body>
+</html>
