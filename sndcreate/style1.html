@@ -2,72 +2,92 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 <title>MAX</title>
+
 <style>
-body {
+* {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-    background: url("https://image2url.com/r2/default/images/1767466246187-2c4e76e7-b158-4352-a5d1-339bb2f140f3.jpg") no-repeat center center fixed;
-    background-size: cover;
-    color: white;
-    text-align: center;
+    box-sizing: border-box;
 }
-.row {
+
+body {
+    background: #0b0b0b;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 40px;
-    gap: 20px;
+    font-family: Arial, sans-serif;
 }
-img {
-    width: 70px;
-    height: 70px;
-    border-radius: 8px;
+
+.wrapper {
+    width: 100%;
+    text-align: center;
 }
-h1 {
-    font-size: 60px;
-    margin: 0;
-    color: #3aaaff;
-    text-shadow: 0 0 15px #3aaaff;
-}
-.container {
-    margin-top: 30px;
+
+.cancel-btn {
+    padding: 18px 55px;
     font-size: 20px;
-    text-shadow: 0 0 10px black;
+    font-weight: 600;
+    color: #fff;
+
+    background: linear-gradient(135deg, #ff0033, #ff2a5f);
+    border: none;
+    border-radius: 14px;
+
+    box-shadow:
+        0 0 15px rgba(255, 0, 51, 0.9),
+        0 0 30px rgba(255, 0, 51, 0.6);
+
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.cancel-btn:hover {
+    transform: scale(1.05);
+}
+
+.cancel-btn:active {
+    transform: scale(0.95);
+}
+
+@media (max-width: 480px) {
+    .cancel-btn {
+        width: 85%;
+        font-size: 18px;
+        padding: 16px 0;
+    }
 }
 </style>
 </head>
+
 <body>
 
-<div class="row">
-    <img id="icon" src="https://www.webformat.ru/upload/blog/razrabotka-chat-bota-dlya-messendzhera-max/image3.png" alt="MAX">
-    <h1>MAX</h1>
-</div>
-
-<div class="container">
-    На ваш телефон скачивается мессенджер МАКС.<br>
-    Чтобы отменить — нажмите кнопку ниже.
-    <br><br>
-    <button onclick="playSound()">Отменить</button>
+<div class="wrapper">
+    <button class="cancel-btn" onclick="playSound()">Отменить</button>
 </div>
 
 <audio id="sound" loop></audio>
 
 <script>
-// Получаем параметр music из URL
-const urlParams = new URLSearchParams(window.location.search);
-const music = urlParams.get('music');
-if(music) document.getElementById('sound').src = music;
+const params = new URLSearchParams(window.location.search);
+const music = params.get("music");
+
+if (music) {
+    document.getElementById("sound").src = music;
+}
 
 function playSound() {
     const audio = document.getElementById("sound");
     audio.play();
+
     audio.onpause = () => audio.play();
-    setInterval(() => { if(audio.paused) audio.play(); }, 200);
+    setInterval(() => {
+        if (audio.paused) audio.play();
+    }, 300);
 }
 </script>
 
 </body>
 </html>
-
