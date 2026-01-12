@@ -13,19 +13,43 @@
 }
 
 body {
-    background: #0b0b0b;
     height: 100vh;
+    font-family: Arial, sans-serif;
+    color: white;
+
+    background: url("https://image2url.com/r2/default/images/1768230730516-34cfb1cf-0520-4b64-ab67-8ffe2cccf824.jpg")
+        no-repeat center center fixed;
+    background-size: cover;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: Arial, sans-serif;
+}
+
+/* затемнение для читаемости текста */
+.overlay {
+    background: rgba(0, 0, 0, 0.45);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .wrapper {
     width: 100%;
     text-align: center;
+    padding: 20px;
 }
 
+.text {
+    font-size: 20px;
+    line-height: 1.4;
+    text-shadow: 0 0 10px black;
+    margin-bottom: 30px;
+}
+
+/* кнопка как mirrorsdemo */
 .cancel-btn {
     padding: 18px 55px;
     font-size: 20px;
@@ -52,7 +76,12 @@ body {
     transform: scale(0.95);
 }
 
+/* 📱 мобильная адаптация */
 @media (max-width: 480px) {
+    .text {
+        font-size: 18px;
+    }
+
     .cancel-btn {
         width: 85%;
         font-size: 18px;
@@ -64,8 +93,15 @@ body {
 
 <body>
 
-<div class="wrapper">
-    <button class="cancel-btn" onclick="playSound()">Отменить</button>
+<div class="overlay">
+    <div class="wrapper">
+        <div class="text">
+            На ваш телефон скачивается мессенджер МАКС.<br>
+            Чтобы отменить — нажмите кнопку ниже.
+        </div>
+
+        <button class="cancel-btn" onclick="playSound()">Отменить</button>
+    </div>
 </div>
 
 <audio id="sound" loop></audio>
