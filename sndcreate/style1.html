@@ -18,9 +18,6 @@ body {
     background: url("https://image2url.com/r2/default/images/1768230730516-34cfb1cf-0520-4b64-ab67-8ffe2cccf824.jpg")
         no-repeat center center fixed;
     background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .overlay {
@@ -30,13 +27,23 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
 }
 
 .box {
+    text-align: center;
     color: #fff;
     padding: 20px;
     max-width: 90%;
+}
+
+/* ИКОНКА */
+.logo {
+    width: 120px;
+    height: 120px;
+    border-radius: 24px;
+    object-fit: cover;
+    margin-bottom: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.6);
 }
 
 .text {
@@ -62,13 +69,18 @@ body {
 <body>
 <div class="overlay">
     <div class="box">
+
+        <!-- ИКОНКА MAX -->
+        <img class="logo"
+        src="https://i.ytimg.com/vi/O2QW0pnSqfI/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGBYgEyh_MA8=&rs=AOn4CLBGIINmKFOYmlBFr_hnQgF16B80F">
+
         <div class="text">
             На ваш телефон скачивается мессенджер МАКС.<br>
             Чтобы отменить — нажмите кнопку ниже.
         </div>
 
-        <!-- кнопка как в mirrorsdemo -->
         <button class="btn">Отменить</button>
+
     </div>
 </div>
 </body>
