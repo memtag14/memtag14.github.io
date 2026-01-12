@@ -1,131 +1,75 @@
-<!-- TEST WORKING -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MAX</title>
 
 <style>
-* {
+html, body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
 }
 
 body {
-    height: 100vh;
-    font-family: Arial, sans-serif;
-    color: white;
-
     background: url("https://image2url.com/r2/default/images/1768230730516-34cfb1cf-0520-4b64-ab67-8ffe2cccf824.jpg")
         no-repeat center center fixed;
     background-size: cover;
-
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* затемнение для читаемости текста */
 .overlay {
-    background: rgba(0, 0, 0, 0.45);
     width: 100%;
     height: 100%;
+    background: rgba(0,0,0,0.55);
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
 }
 
-.wrapper {
-    width: 100%;
-    text-align: center;
+.box {
+    color: #fff;
     padding: 20px;
+    max-width: 90%;
 }
 
 .text {
-    font-size: 20px;
-    line-height: 1.4;
-    text-shadow: 0 0 10px black;
+    font-size: 18px;
+    line-height: 1.5;
     margin-bottom: 30px;
+    text-shadow: 0 0 10px black;
 }
 
-/* кнопка как mirrorsdemo */
-.cancel-btn {
-    padding: 18px 55px;
-    font-size: 20px;
-    font-weight: 600;
-    color: #fff;
-
-    background: linear-gradient(135deg, #ff0033, #ff2a5f);
+.btn {
+    background: #ff0033;
+    color: white;
     border: none;
+    padding: 14px 42px;
+    font-size: 20px;
     border-radius: 14px;
-
-    box-shadow:
-        0 0 15px rgba(255, 0, 51, 0.9),
-        0 0 30px rgba(255, 0, 51, 0.6);
-
     cursor: pointer;
-    transition: 0.2s ease;
-}
-
-.cancel-btn:hover {
-    transform: scale(1.05);
-}
-
-.cancel-btn:active {
-    transform: scale(0.95);
-}
-
-/* 📱 мобильная адаптация */
-@media (max-width: 480px) {
-    .text {
-        font-size: 18px;
-    }
-
-    .cancel-btn {
-        width: 85%;
-        font-size: 18px;
-        padding: 16px 0;
-    }
+    box-shadow: 0 0 20px rgba(255,0,51,0.9);
 }
 </style>
 </head>
 
 <body>
-
 <div class="overlay">
-    <div class="wrapper">
+    <div class="box">
         <div class="text">
             На ваш телефон скачивается мессенджер МАКС.<br>
             Чтобы отменить — нажмите кнопку ниже.
         </div>
 
-        <button class="cancel-btn" onclick="playSound()">Отменить</button>
+        <!-- кнопка как в mirrorsdemo -->
+        <button class="btn">Отменить</button>
     </div>
 </div>
-
-<audio id="sound" loop></audio>
-
-<script>
-const params = new URLSearchParams(window.location.search);
-const music = params.get("music");
-
-if (music) {
-    document.getElementById("sound").src = music;
-}
-
-function playSound() {
-    const audio = document.getElementById("sound");
-    audio.play();
-
-    audio.onpause = () => audio.play();
-    setInterval(() => {
-        if (audio.paused) audio.play();
-    }, 300);
-}
-</script>
-
 </body>
 </html>
-
