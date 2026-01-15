@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Media Host</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>🎵🖼 Media Host</h1>
+  <p>Загружай музыку и картинки — получай прямую ссылку</p>
+
+  <div class="card">
+    <h2>Загрузка изображения</h2>
+    <input type="file" id="image">
+    <button onclick="uploadImage()">Загрузить</button>
+    <div id="imageResult"></div>
+  </div>
+
+  <div class="card">
+    <h2>Загрузка музыки</h2>
+    <input type="file" id="music">
+    <button onclick="uploadMusic()">Загрузить</button>
+    <div id="musicResult"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
