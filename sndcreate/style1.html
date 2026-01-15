@@ -2,86 +2,120 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 <title>MAX</title>
 
 <style>
-html, body {
+* {
     margin: 0;
     padding: 0;
-    width: 100%;
-    height: 100%;
-    font-family: Arial, sans-serif;
+    box-sizing: border-box;
 }
 
 body {
-    background: url("https://image2url.com/r2/default/images/1768230730516-34cfb1cf-0520-4b64-ab67-8ffe2cccf824.jpg")
-        no-repeat center center fixed;
-    background-size: cover;
-}
-
-.overlay {
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.55);
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    background: url("https://image2url.com/r2/default/images/1768230730516-34cfb1cf-0520-4b64-ab67-8ffe2cccf824.jpg") center/cover no-repeat;
     display: flex;
-    align-items: center;
     justify-content: center;
-}
-
-.box {
-    text-align: center;
+    align-items: center;
     color: #fff;
-    padding: 20px;
-    max-width: 90%;
 }
 
-/* ИКОНКА */
-.logo {
+/* затемнение */
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.25);
+}
+
+/* контейнер */
+.container {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 20px;
+    max-width: 360px;
+    width: 100%;
+}
+
+/* иконка */
+.icon {
     width: 120px;
     height: 120px;
     border-radius: 24px;
     object-fit: cover;
     margin-bottom: 20px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.6);
+    box-shadow: 0 0 25px rgba(255,255,255,0.2);
 }
 
+/* текст */
 .text {
     font-size: 18px;
-    line-height: 1.5;
+    line-height: 1.4;
     margin-bottom: 30px;
-    text-shadow: 0 0 10px black;
 }
 
-.btn {
-    background: #ff0033;
-    color: white;
+/* кнопка как mirrorsdemo */
+.cancel-btn {
+    background: #ff1744;
     border: none;
-    padding: 14px 42px;
-    font-size: 20px;
+    color: white;
+    font-size: 18px;
+    padding: 14px 36px;
     border-radius: 14px;
     cursor: pointer;
-    box-shadow: 0 0 20px rgba(255,0,51,0.9);
+    box-shadow: 0 0 20px rgba(255,23,68,0.8);
+    transition: 0.2s;
+}
+
+.cancel-btn:active {
+    transform: scale(0.95);
+}
+
+/* мобильная адаптация */
+@media (max-width: 480px) {
+    .icon {
+        width: 100px;
+        height: 100px;
+    }
+
+    .text {
+        font-size: 16px;
+    }
+
+    .cancel-btn {
+        width: 100%;
+        font-size: 17px;
+    }
 }
 </style>
 </head>
 
 <body>
-<div class="overlay">
-    <div class="box">
 
-        <!-- ИКОНКА MAX -->
-        <img class="logo"
-        src="https://i.ytimg.com/vi/O2QW0pnSqfI/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGBYgEyh_MA8=&rs=AOn4CLBGIINmKFOYmlBFr_hnQgF16B80F">
+<div class="overlay"></div>
 
-        <div class="text">
-            На ваш телефон скачивается мессенджер МАКС.<br>
-            Чтобы отменить — нажмите кнопку ниже.
-        </div>
+<div class="container">
 
-        <button class="btn">Отменить</button>
+    <!-- ИКОНКА -->
+    <img
+      class="icon"
+      src="https://i.ytimg.com/vi/O2QW0pnSqfI/maxresdefault.jpg"
+      alt="MAX">
 
+    <!-- ТЕКСТ -->
+    <div class="text">
+        На ваш телефон скачивается мессенджер МАКС.<br>
+        Чтобы отменить — нажмите кнопку ниже.
     </div>
+
+    <!-- КНОПКА -->
+    <button class="cancel-btn">
+        Отменить
+    </button>
+
 </div>
+
 </body>
 </html>
