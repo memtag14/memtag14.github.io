@@ -21,14 +21,12 @@ body {
     background: url("https://image2url.com/r2/default/images/1768230730516-34cfb1cf-0520-4b64-ab67-8ffe2cccf824.jpg") center / cover no-repeat;
 }
 
-/* затемнение */
 .overlay {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.35);
 }
 
-/* главный центр */
 .wrapper {
     position: relative;
     z-index: 2;
@@ -38,7 +36,6 @@ body {
     justify-content: center;
 }
 
-/* блок контента */
 .container {
     text-align: center;
     padding: 20px;
@@ -46,7 +43,6 @@ body {
     max-width: 360px;
 }
 
-/* иконка */
 .icon {
     width: 120px;
     height: 120px;
@@ -56,7 +52,6 @@ body {
     box-shadow: 0 0 30px rgba(255,255,255,0.25);
 }
 
-/* текст */
 .text {
     font-size: 18px;
     line-height: 1.4;
@@ -65,7 +60,6 @@ body {
     text-shadow: 0 0 8px rgba(0,0,0,0.8);
 }
 
-/* кнопка mirrorsdemo */
 .cancel-btn {
     background: #ff1744;
     border: none;
@@ -82,7 +76,6 @@ body {
     transform: scale(0.94);
 }
 
-/* мобильная адаптация */
 @media (max-width: 480px) {
     .icon {
         width: 96px;
@@ -110,25 +103,37 @@ body {
 <div class="wrapper">
     <div class="container">
 
-        <!-- ИКОНКА -->
         <img
             class="icon"
             src="https://i.ytimg.com/vi/O2QW0pnSqfI/maxresdefault.jpg"
             alt="MAX">
 
-        <!-- ТЕКСТ -->
         <div class="text">
             На ваш телефон скачивается мессенджер МАКС.<br>
             Чтобы отменить — нажмите кнопку ниже.
         </div>
 
-        <!-- КНОПКА -->
-        <button class="cancel-btn">
+        <button class="cancel-btn" id="playSound">
             Отменить
         </button>
 
     </div>
 </div>
+
+<!-- 🔊 АУДИО ПО ССЫЛКЕ -->
+<audio id="clickSound" preload="auto">
+    <source src="https://www.soundjay.com/buttons/sounds/button-10.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const btn = document.getElementById("playSound");
+const sound = document.getElementById("clickSound");
+
+btn.addEventListener("click", () => {
+    sound.currentTime = 0;
+    sound.play().catch(() => {});
+});
+</script>
 
 </body>
 </html>
