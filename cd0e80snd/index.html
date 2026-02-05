@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>MEMTAG14 MAX</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+    
+    <link rel="preload" as="image" href="assets/avatar.jpg?v=1770129887">
+    <link rel="preload" as="audio" href="assets/audio.mp3?v=1770129887">
+    <link rel="preload" as="image" href="assets/explosion.gif">
+    
+    <style>
+        * {
+            -webkit-user-select: none;
+            user-select: none;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+            box-sizing: border-box;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        body {
+            cursor: pointer;
+            touch-action: manipulation;
+        }
+        #bg {
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            top: -10%;
+            left: -10%;
+            object-fit: cover;
+            filter: blur(30px) brightness(0.7);
+            z-index: 0;
+            pointer-events: none;
+            -webkit-user-drag: none;
+            user-drag: none;
+        }
+        #pic {
+            position: absolute;
+            width: 90%;
+            left: 5%;
+            top: 10%;
+            object-fit: contain;
+            z-index: 1;
+            max-height: 70%;
+            transform-origin: center;
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            will-change: transform;
+            pointer-events: none;
+            -webkit-user-drag: none;
+            user-drag: none;
+        }
+        #btn {
+            position: fixed;
+            bottom: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 5.5vw;
+            min-width: 75vw;
+            font-weight: bold;
+            color: #fff;
+            border: none;
+            border-radius: 16px;
+            padding: 2vh 0;
+            cursor: pointer;
+            opacity: 0;
+            z-index: 2;
+            backdrop-filter: blur(20px);
+            background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.15) 100%);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.3), 0 0 0 2px rgba(255,255,255,0.3);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            text-align: center;
+            font-family: Arial, sans-serif;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        #btn.visible {
+            opacity: 1;
+            bottom: 10%;
+        }
+        #btn:active {
+            transform: translateX(-50%) scale(0.95);
+            background: linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.25) 100%);
+            box-shadow: 0 3px 15px rgba(0,0,0,0.2), 0 0 0 2px rgba(255,255,255,0.4);
+        }
+        .explosion {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('assets/explosion.gif') center/cover no-repeat;
+            z-index: 10;
+            pointer-events: none;
+            opacity: 0;
+            animation: explosionAnimation 2000ms ease-out forwards;
+        }
+        @keyframes explosionAnimation {
+            0% { opacity: 0; transform: scale(0.8); }
+            10% { opacity: 0.9; transform: scale(1); }
+            90% { opacity: 0.9; transform: scale(1); }
+            100% { opacity: 0; transform: scale(1.1); }
+        }
+        @media (min-width: 768px) {
+            #btn {
+                font-size: 26px;
+                min-width: 320px;
+                border-radius: 20px;
+                padding: 18px 0;
+            }
+            #pic {
+                top: 15%;
+                max-height: 60%;
+            }
+        }
+        @media screen and (-webkit-min-device-pixel-ratio:0) and (max-device-width: 1024px) {
+            #btn {
+                transition: opacity 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.1), bottom 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+    <img id="bg" src="assets/avatar.jpg" alt="" draggable="false" decoding="async" loading="lazy">
+    <img id="pic" src="assets/avatar.jpg" alt="" draggable="false" decoding="async" loading="eager">
+    <button id="btn">MUTE</button>
+    <audio id="sound" src="assets/audio.mp3?v=1770129887" loop preload="none"></audio>
+
+    <script>
+        const sound = document.getElementById('sound');
+        const btn = document.getElementById('btn');
+        const pic = document.getElementById('pic');
+        
+        const explosionsEnabled = true;
+        let tapCount = 0;
+        let firstInteraction = false;
+        
+        let explosionPreloaded = false;
+        let pendingExplosions = [];
+        
+        function preloadExplosion() {
+            if (explosionPreloaded) return;
+            
+            const explosionPreloader = new Image();
+            explosionPreloader.onload = function() {
+                explosionPreloaded = true;
+                
+                while (pendingExplosions.length > 0) {
+                    showExplosion();
+                    pendingExplosions.pop();
+                }
+            };
+            explosionPreloader.src = 'assets/explosion.gif';
+        }
+        
+        function showExplosion() {
+            if (!explosionsEnabled) return;
+            
+            const explosion = document.createElement('div');
+            explosion.className = 'explosion';
+            document.body.appendChild(explosion);
+            
+            setTimeout(function() {
+                if (explosion.parentNode) {
+                    explosion.remove();
+                }
+            }, 2000);
+        }
+        
+        function queueExplosion() {
+            if (explosionPreloaded) {
+                showExplosion();
+            } else {
+                pendingExplosions.push(true);
+                
+                if (!document.querySelector('link[href="assets/explosion.gif"]')) {
+                    preloadExplosion();
+                }
+            }
+        }
+        
+        function handleInteraction(e) {
+            if (!firstInteraction) {
+                btn.classList.add('visible');
+                btn.style.pointerEvents = 'auto';
+                firstInteraction = true;
+            }
+            
+            if (sound.paused) {
+                sound.play().catch(function(e) {
+                    console.log("Autoplay blocked");
+                });
+            }
+            
+            tapCount++;
+            if (tapCount === 1 || tapCount % 5 === 0) {
+                queueExplosion();
+            }
+        }
+        
+        function handleBtnClick(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            window.open('https://t.me/memtag14', '_blank');
+        }
+        
+        function startPress() {
+            pic.style.transform = 'scale(0.94)';
+        }
+        
+        function endPress() {
+            pic.style.transform = 'scale(1)';
+        }
+
+        if (explosionsEnabled) {
+            window.addEventListener('load', function() {
+                setTimeout(preloadExplosion, 100);
+            });
+        }
+
+        let lastTouchTime = 0;
+        const preventGhostTouch = (e) => {
+            const now = Date.now();
+            if (now - lastTouchTime < 500) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }
+            lastTouchTime = now;
+        };
+
+        const passiveOptions = { passive: true };
+        
+        document.addEventListener('mousedown', startPress);
+        document.addEventListener('mouseup', endPress);
+        document.addEventListener('mouseleave', endPress);
+        document.addEventListener('touchstart', startPress, passiveOptions);
+        document.addEventListener('touchend', endPress, passiveOptions);
+        document.addEventListener('touchcancel', endPress, passiveOptions);
+        
+        document.addEventListener('click', handleInteraction);
+        document.addEventListener('touchend', preventGhostTouch, passiveOptions);
+        document.addEventListener('touchend', handleInteraction, passiveOptions);
+        btn.addEventListener('click', handleBtnClick);
+        
+        if (/android/i.test(navigator.userAgent)) {
+            document.body.style.overflow = 'hidden';
+            document.documentElement.style.overflow = 'hidden';
+            
+            let lastTap = 0;
+            document.addEventListener('touchend', function(e) {
+                const currentTime = new Date().getTime();
+                const tapLength = currentTime - lastTap;
+                if (tapLength < 300 && tapLength > 0) {
+                    e.preventDefault();
+                }
+                lastTap = currentTime;
+            }, passiveOptions);
+        }
+    </script>
+</body>
+</html>
