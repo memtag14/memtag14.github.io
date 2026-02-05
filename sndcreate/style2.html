@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>SoundTag</title>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #0d0d0d;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: white;
+}
+#content {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+img {
+    width: 60vw;
+    max-width: 200px;
+    height: 60vw;
+    max-height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 12px #0088cc;
+    margin-bottom: 20px;
+}
+button {
+    padding: 14px 28px;
+    font-size: 18px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    background: #0088cc;
+    color: white;
+    box-shadow: 0 0 10px #0088cc;
+    margin: 5px;
+}
+button:hover { background: #007bb5; }
+button:active { transform: scale(0.95); }
+</style>
+</head>
+<body>
+
+<!-- Кнопка перезагрузить -->
+<button id="reloadBtn" onclick="start()">Перезагрузить</button>
+
+<!-- Контент второго стиля -->
+<div id="content">
+    <img id="icon" src="" alt="Image">
+    <a href="https://t.me/memtag14" target="_blank">
+        <button>Telegram</button>
+    </a>
+</div>
+
+<audio id="sound" loop></audio>
+
+<script>
+// Получаем параметры из URL
+const urlParams = new URLSearchParams(window.location.search);
+const music = urlParams.get('music');
+const icon = urlParams.get('icon');
+
+if (music) document.getElementById('sound').src = music;
+if (icon) document.getElementById('icon').src = icon;
+
+function start() {
+    const audio = document.getElementById("sound");
+    audio.currentTime = 0;
+    audio.play();
+    
+    // Скрываем кнопку "Перезагрузить" и показываем контент
+    document.getElementById('reloadBtn').style.display = 'none';
+    document.getElementById('content').style.display = 'flex';
+}
+</script>
+
+</body>
+</html>

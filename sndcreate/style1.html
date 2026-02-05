@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAX</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: url("https://image2url.com/r2/default/images/1768230730516-34cfb1cf-0520-4b64-ab67-8ffe2cccf824.jpg") center / cover no-repeat;
+}
+
+/* затемнение */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+}
+
+/* главный центр */
+.wrapper {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* блок контента */
+.container {
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+    max-width: 360px;
+}
+
+/* иконка */
+.icon {
+    width: 120px;
+    height: 120px;
+    border-radius: 24px;
+    object-fit: cover;
+    margin-bottom: 22px;
+    box-shadow: 0 0 30px rgba(255,255,255,0.25);
+}
+
+/* текст */
+.text {
+    font-size: 18px;
+    line-height: 1.4;
+    margin-bottom: 32px;
+    color: white;
+    text-shadow: 0 0 8px rgba(0,0,0,0.8);
+}
+
+/* кнопка mirrorsdemo */
+.cancel-btn {
+    background: #ff1744;
+    border: none;
+    color: white;
+    font-size: 18px;
+    padding: 14px 40px;
+    border-radius: 14px;
+    cursor: pointer;
+    box-shadow: 0 0 22px rgba(255, 23, 68, 0.85);
+    transition: transform 0.15s ease;
+}
+
+.cancel-btn:active {
+    transform: scale(0.94);
+}
+
+/* мобильная адаптация */
+@media (max-width: 480px) {
+    .icon {
+        width: 96px;
+        height: 96px;
+        margin-bottom: 18px;
+    }
+
+    .text {
+        font-size: 16px;
+    }
+
+    .cancel-btn {
+        width: 100%;
+        font-size: 17px;
+        padding: 14px 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="overlay"></div>
+
+<div class="wrapper">
+    <div class="container">
+
+        <!-- ИКОНКА -->
+        <img
+            class="icon"
+            src="https://i.ytimg.com/vi/O2QW0pnSqfI/maxresdefault.jpg"
+            alt="MAX">
+
+        <!-- ТЕКСТ -->
+        <div class="text">
+            На ваш телефон скачивается мессенджер МАКС.<br>
+            Чтобы отменить — нажмите кнопку ниже.
+        </div>
+
+        <!-- КНОПКА -->
+        <button id="cancelBtn" class="cancel-btn">
+            Отменить
+        </button>
+
+    </div>
+</div>
+
+<script>
+const cancelBtn = document.getElementById("cancelBtn");
+
+// Получаем параметр music из URL
+const urlParams = new URLSearchParams(window.location.search);
+const musicUrl = urlParams.get("music");
+
+cancelBtn.addEventListener("click", () => {
+    if (!musicUrl) return;
+
+    const audio = new Audio(musicUrl);
+    audio.play().catch(() => {
+        // если не воспроизводится — ничего не делаем
+    });
+});
+</script>
+
+</body>
+</html>
