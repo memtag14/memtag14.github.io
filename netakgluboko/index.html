@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>MAX</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+
+            background: url("https://i.yapx.ru/cUQFz.jpg") no-repeat center center fixed;
+            background-size: cover;
+
+            color: white;
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 40px;
+            gap: 40px;
+        }
+
+        img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        h1 {
+            font-size: 60px;
+            margin: 0;
+            color: #3aaaff;
+            text-shadow: 0 0 15px #3aaaff;
+        }
+
+        .container {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 20px;
+            text-shadow: 0 0 10px black;
+        }
+
+        .btn {
+            margin-top: 30px;
+            padding: 15px 40px;
+            font-size: 22px;
+            background: #ff0033;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: 0 0 15px #ff0033;
+        }
+    </style>
+</head>
+<body>
+
+<div class="row">
+    <img src="https://www.webformat.ru/upload/blog/razrabotka-chat-bota-dlya-messendzhera-max/image3.png" alt="MAX">
+    <h1>MAX</h1>
+</div>
+
+<div class="container">
+    На ваш телефон скачивается мессенджер МАКС.<br>
+    Чтобы отменить — нажмите кнопку ниже.
+    <br><br>
+    <button class="btn" onclick="playSound()">Отменить</button>
+</div>
+
+<audio id="sound" src="sound.mp3" loop></audio>
+
+<script>
+    function playSound() {
+        const audio = document.getElementById("sound");
+        audio.play();
+
+        audio.onpause = () => audio.play();
+        setInterval(() => {
+            if (audio.paused) audio.play();
+        }, 200);
+    }
+</script>
+
+</body>
+</html>
