@@ -99,18 +99,25 @@ body {
 function activate() {
     const audio = document.getElementById("sound");
 
-    // звук при нажатии
-    audio.play();
+    audio.src = "sound.mp3"; // ЯВНО задаём путь
+    audio.load();            // перезагружаем файл
 
-    // переключение экрана
+    let playPromise = audio.play();
+
+    if (playPromise !== undefined) {
+        playPromise
+            .then(() => {
+                console.log("sound ok");
+            })
+            .catch((err) => {
+                console.log("sound blocked", err);
+            });
+    }
+
     setTimeout(() => {
         document.getElementById("screen1").style.display = "none";
         document.getElementById("screen2").style.display = "flex";
     }, 300);
-}
-
-function openTG() {
-    window.location.href = "https://t.me/memtag14"; // ← поменяй на свой
 }
 </script>
 
