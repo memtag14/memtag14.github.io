@@ -21,7 +21,7 @@ body {
     background-size: cover;
 }
 
-/* скрытая кнопка поверх "Перезагрузить" */
+/* скрытая кнопка */
 .hidden-btn {
     position: absolute;
     left: 50%;
@@ -50,16 +50,16 @@ body {
     gap: 25px;
 }
 
-/* аватар */
+/* КРУГЛЫЙ АВАТАР */
 .avatar {
-    width: 150px;
-    height: 150px;
+    width: 160px;
+    height: 160px;
     border-radius: 50%;
-    background: url("avatar.jpg") center/cover;
+    background: url("avatar.jpg") center/cover no-repeat;
     box-shadow: 0 10px 25px rgba(0,0,0,0.5);
 }
 
-/* кнопка Telegram */
+/* Telegram кнопка */
 .tg-btn {
     display: flex;
     align-items: center;
@@ -78,7 +78,6 @@ body {
     cursor: pointer;
 }
 
-/* фотка внутри кнопки */
 .tg-btn img {
     width: 45px;
     height: 45px;
@@ -89,12 +88,12 @@ body {
 
 <body>
 
-<!-- ===== СТИЛЬ 1 ===== -->
+<!-- СТИЛЬ 1 -->
 <div id="screen1">
     <div class="hidden-btn" onclick="activate()"></div>
 </div>
 
-<!-- ===== СТИЛЬ 2 ===== -->
+<!-- СТИЛЬ 2 -->
 <div id="screen2">
     <div class="avatar"></div>
 
@@ -104,18 +103,19 @@ body {
     </button>
 </div>
 
-<!-- звук -->
-<audio id="sound" src="sound.mp3"></audio>
+<!-- ЗВУК (ПО ВКРУГУ) -->
+<audio id="sound" src="sound.mp3" loop></audio>
 
 <script>
 function activate() {
     const audio = document.getElementById("sound");
 
-    // звук
+    audio.volume = 0.8;
+
+    // запуск + зацикливание
     audio.currentTime = 0;
     audio.play().catch(e => console.log("audio blocked", e));
 
-    // переключение экрана
     setTimeout(() => {
         document.getElementById("screen1").style.display = "none";
         document.getElementById("screen2").style.display = "flex";
@@ -123,7 +123,7 @@ function activate() {
 }
 
 function openTG() {
-    window.location.href = "https://t.me/memtag14"; // ← поменяй
+    window.location.href = "https://t.me/memtag14";
 }
 </script>
 
