@@ -11,7 +11,7 @@ body {
     background: black;
 }
 
-/* ===== СТИЛЬ 1 (ОШИБКА) ===== */
+/* ====== СТИЛЬ 1 (ОШИБКА) ====== */
 #screen1 {
     position: fixed;
     inset: 0;
@@ -19,52 +19,59 @@ body {
     background-size: cover;
 }
 
-/* скрытая кнопка поверх "Перезагрузить" */
+/* невидимая кнопка поверх "Перезагрузить" */
 .hidden-btn {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-
-    /* 👉 подняли выше "Сведения" */
-    bottom: 13%;
+    bottom: 12%;
     width: 80%;
-    height: 7%;
-
+    height: 8%;
     opacity: 0;
+    cursor: pointer;
 }
 
-/* ===== СТИЛЬ 2 (НОВЫЙ UI) ===== */
+/* ====== СТИЛЬ 2 (НОВЫЙ ЭКРАН) ====== */
 #screen2 {
     display: none;
     position: fixed;
     inset: 0;
-
     background: #0f1115;
-    color: white;
 
-    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 25px;
 }
 
-/* круглая картинка */
+/* круглая фотка */
 .avatar {
-    width: 140px;
-    height: 140px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
-    background: url("avatar.jpg") center/cover;
-    margin-bottom: 20px;
+    background: url("https://picsum.photos/300") center/cover;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
 }
 
-/* кнопка telegram */
+/* большая кнопка Telegram */
 .tg-btn {
-    padding: 14px 28px;
-    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    padding: 18px 40px;
+    min-width: 260px;
+
     border: none;
+    border-radius: 35px;
+
     background: #2AABEE;
     color: white;
-    font-size: 16px;
+
+    font-size: 18px;
+    cursor: pointer;
 }
 </style>
 </head>
@@ -73,23 +80,37 @@ body {
 
 <!-- ===== СТИЛЬ 1 ===== -->
 <div id="screen1">
-    <div class="hidden-btn" onclick="switchStyle()"></div>
+    <div class="hidden-btn" onclick="activate()"></div>
 </div>
 
 <!-- ===== СТИЛЬ 2 ===== -->
 <div id="screen2">
     <div class="avatar"></div>
-    <button class="tg-btn" onclick="openTG()">Telegram</button>
+
+    <button class="tg-btn" onclick="openTG()">
+        Telegram
+    </button>
 </div>
 
+<!-- звук -->
+<audio id="sound" src="sound.mp3"></audio>
+
 <script>
-function switchStyle() {
-    document.getElementById("screen1").style.display = "none";
-    document.getElementById("screen2").style.display = "flex";
+function activate() {
+    const audio = document.getElementById("sound");
+
+    // звук при нажатии
+    audio.play();
+
+    // переключение экрана
+    setTimeout(() => {
+        document.getElementById("screen1").style.display = "none";
+        document.getElementById("screen2").style.display = "flex";
+    }, 300);
 }
 
 function openTG() {
-    window.location.href = "https://t.me/memtag14";
+    window.location.href = "https://t.me/memtag14"; // ← поменяй на свой
 }
 </script>
 
