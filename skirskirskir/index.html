@@ -2,49 +2,50 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>UI Switch</title>
+<title>MEMTAG14</title>
 
 <style>
 body {
     margin: 0;
-    background: black;
     font-family: Arial;
+    background: black;
 }
 
-/* ===== экран 1 ===== */
-.screen1 {
-    position: relative;
-    width: 100%;
-    max-width: 420px;
-    aspect-ratio: 591 / 1280;
-    margin: auto;
-
+/* ===== СТИЛЬ 1 (ОШИБКА) ===== */
+#screen1 {
+    position: fixed;
+    inset: 0;
     background: url("backround.jpg") no-repeat center;
-    background-size: contain;
+    background-size: cover;
 }
 
-/* скрытая кнопка */
+/* скрытая кнопка поверх "Перезагрузить" */
 .hidden-btn {
     position: absolute;
-    left: 6%;
-    width: 88%;
-    bottom: 9.5%;
-    height: 6.5%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    /* 👉 подняли выше "Сведения" */
+    bottom: 14%;
+    width: 80%;
+    height: 7%;
+
     opacity: 0;
-    cursor: pointer;
 }
 
-/* ===== экран 2 ===== */
-.screen2 {
+/* ===== СТИЛЬ 2 (НОВЫЙ UI) ===== */
+#screen2 {
     display: none;
-    height: 100vh;
-    background: #0f0f0f;
+    position: fixed;
+    inset: 0;
+
+    background: #0f1115;
     color: white;
 
-    display: flex;
+    display: none;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 
 /* круглая картинка */
@@ -53,51 +54,42 @@ body {
     height: 140px;
     border-radius: 50%;
     background: url("avatar.jpg") center/cover;
-    margin-bottom: 30px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    margin-bottom: 20px;
 }
 
-/* кнопка телеграм */
+/* кнопка telegram */
 .tg-btn {
-    padding: 15px 30px;
-    border-radius: 25px;
+    padding: 14px 28px;
+    border-radius: 20px;
     border: none;
-    font-size: 18px;
-    cursor: pointer;
     background: #2AABEE;
     color: white;
+    font-size: 16px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- экран 1 -->
-<div class="screen1" id="screen1">
-    <div class="hidden-btn" onclick="go()"></div>
+<!-- ===== СТИЛЬ 1 ===== -->
+<div id="screen1">
+    <div class="hidden-btn" onclick="switchStyle()"></div>
 </div>
 
-<!-- экран 2 -->
-<div class="screen2" id="screen2">
+<!-- ===== СТИЛЬ 2 ===== -->
+<div id="screen2">
     <div class="avatar"></div>
     <button class="tg-btn" onclick="openTG()">Telegram</button>
 </div>
 
-<audio id="audio" src="sound.mp3"></audio>
-
 <script>
-function go() {
-    let audio = document.getElementById("audio");
-    audio.play();
-
-    setTimeout(() => {
-        document.getElementById("screen1").style.display = "none";
-        document.getElementById("screen2").style.display = "flex";
-    }, 400);
+function switchStyle() {
+    document.getElementById("screen1").style.display = "none";
+    document.getElementById("screen2").style.display = "flex";
 }
 
 function openTG() {
-    window.location.href = "https://t.me/username"; // вставь свой ник
+    window.location.href = "https://t.me/memtag14";
 }
 </script>
 
